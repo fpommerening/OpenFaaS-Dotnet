@@ -52,8 +52,8 @@ services:
 
     # Service label of "function" allows functions to show up in UI on http://gateway:8080/
     alexa:
-        #image: fpommerening/openfaasdotnet:alexa
-        image: alexacsharp:latest
+        #image: fpommerening/openfaas-dotnet:alexa
+        image: alexa:latest
         labels:
             function: "true"
         depends_on:
