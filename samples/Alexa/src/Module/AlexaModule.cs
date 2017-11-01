@@ -1,8 +1,10 @@
+using System.IO;
+using System.Text;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Nancy;
-using Nancy.ModelBinding;
+using Newtonsoft.Json;
 
 namespace FP.OpenfaasDotnet.Alexa.Module
 {
@@ -12,7 +14,15 @@ namespace FP.OpenfaasDotnet.Alexa.Module
         {
             Post("/", async (args, ct) =>
             {
-                var request = this.Bind<SkillRequest>();
+
+                SkillRequest request = null;
+
+                using (var reader = new StreamReader(this.Request.Body, Encoding.UTF8))
+                {
+                    var bodyText = await reader.ReadToEndAsync();
+                    request = JsonConvert.DeserializeObject<SkillRequest>(bodyText);
+                }
+
                 SkillResponse response;
 
                 switch (request.Request.Type)
@@ -42,11 +52,11 @@ namespace FP.OpenfaasDotnet.Alexa.Module
             switch (intentRequest.Intent.Name.ToLowerInvariant())
             {
                 case "greeting":
-                    return CreatePlaneTextResponse("Hallo und Willkommen zum zehnten Developer Open Space in Leipzig. Ich bin Alexa und wünsche euch viel Spaß beim Workshop dot Net in the big Box.");
+                    return CreatePlaneTextResponse("Hallo und Willkommen bei der dot NET Usergroup Hamburg Ich bin Alexa und wünsche euch viel Spaß beim Vortrag dot Net in the big Box.");
                 case "sendoff":
                     return CreatePlaneTextResponse("Vielen Dank für eure Teilnahme und bis zum nächsten mal.");
                 case "amazon.helpintent":
-                    return CreatePlaneTextResponse("Wenn du Hilfe brauchst rufe Torsten oder Greogor.");
+                    return CreatePlaneTextResponse("Wenn du Hilfe brauchst fragt den lieben Gott");
                 case "amazon.stopintent":
                     return CreatePlaneTextResponse("Meetup aus - OK");
                 default:
