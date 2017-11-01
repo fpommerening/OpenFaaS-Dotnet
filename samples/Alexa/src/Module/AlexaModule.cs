@@ -1,4 +1,6 @@
-using FP.OpenfaasDotnet.Alexa.Model;
+using Alexa.NET.Request;
+using Alexa.NET.Request.Type;
+using Alexa.NET.Response;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -10,8 +12,8 @@ namespace FP.OpenfaasDotnet.Alexa.Module
         {
             Post("/", async (args, ct) =>
             {
-                var request = this.Bind<AlexaRequest>();
-                AlexaResponse response;
+                var request = this.Bind<SkillRequest>();
+                SkillResponse response;
 
                 switch (request.Request.Type)
                 {
@@ -29,15 +31,15 @@ namespace FP.OpenfaasDotnet.Alexa.Module
             });
         }
 
-        private AlexaResponse ExecuteIntent(AlexaRequest request)
+        private SkillResponse ExecuteIntent(SkillRequest skillRequest)
         {
-            var indent = request.Request?.Intent;
+            var intentRequest = skillRequest.Request as IntentRequest;
 
-            if (indent == null)
+            if (intentRequest == null)
             {
                 return CreateUnkownIntentResponse(string.Empty);
             }
-            switch (indent.Name.ToLowerInvariant())
+            switch (intentRequest.Intent.Name.ToLowerInvariant())
             {
                 case "greeting":
                     return CreatePlaneTextResponse("Hallo und Willkommen zum zehnten Developer Open Space in Leipzig. Ich bin Alexa und wünsche euch viel Spaß beim Workshop dot Net in the big Box.");
@@ -48,24 +50,31 @@ namespace FP.OpenfaasDotnet.Alexa.Module
                 case "amazon.stopintent":
                     return CreatePlaneTextResponse("Meetup aus - OK");
                 default:
-                    return CreateUnkownIntentResponse(indent.Name);
+                    return CreateUnkownIntentResponse(intentRequest.Intent.Name);
             }
         }
 
      
 
-        private AlexaResponse CreateUnkownIntentResponse(string name)
+        private SkillResponse CreateUnkownIntentResponse(string name)
         {
             return CreatePlaneTextResponse($"Dein Befehl {name} wurde nicht gefunden.");
         }
 
-        private AlexaResponse CreatePlaneTextResponse(string content)
+        private SkillResponse CreatePlaneTextResponse(string content)
         {
-            var reponse = new AlexaResponse();
-            reponse.Response.OutputSpeech = new OutputSpeech
+            var reponse = new SkillResponse
             {
-                Type = "PlainText",
-                Text = content
+                Version = "1.0",
+                
+            };
+
+            reponse.Response = new ResponseBody
+            {
+                OutputSpeech = new PlainTextOutputSpeech
+                {
+                    Text = content
+                }
             };
 
             return reponse;
