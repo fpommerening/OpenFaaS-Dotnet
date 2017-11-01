@@ -18,7 +18,8 @@ COPY --from=builder /app/out/* ./
 
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
-ENV fprocess="dotnet /app/Hallo.dll"
+#ENV 
+
 EXPOSE 8080
 
 CMD ["fwatchdog"]

@@ -51,25 +51,10 @@ services:
     # Sample functions go here.
 
     # Service label of "function" allows functions to show up in UI on http://gateway:8080/
-    hallo:
-        image: fpommerening/openfaasdotne:hallo
-        labels:
-            function: "true"
-        depends_on:
-            - gateway
-        networks:
-            - functions
-        environment:
-            no_proxy: "gateway"
-            https_proxy: $https_proxy
-        deploy:
-            placement:
-                constraints:
-                    - 'node.platform.os == linux'
+   
 
 networks:
     functions:
-        external:
-            name: myfaasnet
+        driver: overlay
         # Docker does not support this option yet - maybe create outside of the stack and reference as "external"?
         #attachable: true
