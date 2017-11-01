@@ -53,7 +53,7 @@ services:
     # Service label of "function" allows functions to show up in UI on http://gateway:8080/
     consoleargs:
         image: fpommerening/openfaasdotnet:consoleargscsharp
-        image: consoleargs:latest
+        #image: consoleargs:latest
         labels:
             function: "true"
         depends_on:

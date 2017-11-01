@@ -52,7 +52,8 @@ services:
 
     # Service label of "function" allows functions to show up in UI on http://gateway:8080/
     hallo:
-        image: fpommerening/openfaasdotne:hallo
+        image: fpommerening/openfaasdotnet:hallo
+        #image: hallo:latest
         labels:
             function: "true"
         depends_on:
