@@ -55,6 +55,8 @@ namespace FP.OpenfaasDotnet.Alexa.Module
                     return CreatePlaneTextResponse("Hallo und Willkommen bei der dot NET Usergroup Hamburg Ich bin Alexa und wünsche euch viel Spaß beim Vortrag dot Net in the big Box.");
                 case "sendoff":
                     return CreatePlaneTextResponse("Vielen Dank für eure Teilnahme und bis zum nächsten mal.");
+                 case "breaknow":
+                    return CreatePlaneTextResponse("Pause");
                 case "amazon.helpintent":
                     return CreatePlaneTextResponse("Wenn du Hilfe brauchst fragt den lieben Gott");
                 case "amazon.stopintent":
