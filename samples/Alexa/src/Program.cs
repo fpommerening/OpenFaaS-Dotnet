@@ -11,7 +11,7 @@ namespace FP.OpenfaasDotnet.Alexa
     {
         static void Main(string[] args)
         {
-            var content = Common.StdInHelper.GetValue();
+            var content = StdInHelper.GetValue();
             var request = JsonConvert.DeserializeObject<SkillRequest>(content);
 
             SkillResponse response;

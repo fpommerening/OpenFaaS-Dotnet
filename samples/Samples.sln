@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alexa", "Alexa\src\Alexa.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\src\WebApp.csproj", "{417FE488-9A02-4AB1-871D-2E5BE6253431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{FE7BA612-6CE1-4D13-98CD-3276EA764530}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE7BA612-6CE1-4D13-98CD-3276EA764530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE7BA612-6CE1-4D13-98CD-3276EA764530}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE7BA612-6CE1-4D13-98CD-3276EA764530}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE7BA612-6CE1-4D13-98CD-3276EA764530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
