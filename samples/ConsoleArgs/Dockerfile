@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.0-sdk-jessie AS builder
+FROM microsoft/dotnet:2.0-sdk-jessie AS builder
 
 WORKDIR /app
 COPY src /app
@@ -10,7 +10,7 @@ FROM microsoft/dotnet:2.0-runtime-jessie
 LABEL maintainer "frank@pommerening-online.de"
 ENV REFRESHED_AT 2017-10-30
 
-RUN curl -SL https://github.com/alexellis/faas/releases/download/0.6.5/fwatchdog > /usr/bin/fwatchdog \
+RUN curl -SL https://github.com/alexellis/faas/releases/download/0.6.16/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog
 
 WORKDIR /app/

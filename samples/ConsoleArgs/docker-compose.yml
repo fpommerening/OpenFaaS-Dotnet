@@ -5,7 +5,7 @@ services:
             - "/var/run/docker.sock:/var/run/docker.sock"
         ports:
             - 8080:8080
-        image: functions/gateway:0.6.5
+        image: functions/gateway:0.6.15
         networks:
             - functions
         environment:
@@ -52,8 +52,8 @@ services:
 
     # Service label of "function" allows functions to show up in UI on http://gateway:8080/
     consoleargs:
-        image: fpommerening/openfaasdotnet:consoleargscsharp
-        #image: consoleargs:latest
+        #image: fpommerening/openfaasdotnet:consoleargscsharp
+        image: consoleargs:latest
         labels:
             function: "true"
         depends_on:
