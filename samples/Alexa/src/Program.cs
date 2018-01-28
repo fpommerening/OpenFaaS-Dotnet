@@ -86,6 +86,8 @@ namespace FP.OpenfaasDotnet.Alexa
                 }
             };
 
+            reponse.Response.ShouldEndSession = true;
+
             return reponse;
         }
 
