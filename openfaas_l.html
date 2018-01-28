@@ -100,7 +100,7 @@
 				</section>
 				<section>
 					<h4>Service aktualisieren API 1.24+<a href="https://docs.docker.com/engine/reference/commandline/service_update/" target="_blank" class="infolink"></a></h4>
-					<pre><code class="docker">docker service UPDATE [OPTIONS] SERVICE</code></pre>
+					<pre><code class="docker">docker service update [OPTIONS] SERVICE</code></pre>
 					<table>
 	 			<tbody>
 		<tr>
@@ -138,8 +138,194 @@
 				</section>
 
 			</section>
-			
-
+			<section>
+				<section>
+				<h2>Docker Compose / Docker Stack</h2>
+					<img src="images/composelogo.png" style="width: 300px;border: 0"/>
+					<p class="fragment">Zusammenfassung mehrerer Container zu einem Anwendungsstack</p>
+				</section>
+				<section>
+						<h3>Compose-File <a href="https://docs.docker.com/compose/compose-file/compose-versioning/" target="_blank" class="infolink"></a></h3>
+						Eine yaml bzw. yml - Datei, welche die Struktur und Konfiguration des Anwendungsstacks definiert.
+						<br />
+						<br />
+						Standard: docker-compose.yml
+						<br />
+						<br />
+						Versionen / Formate: Ohne Angabe im Header gilt Version 1!
+						 
+				</section>
+				<section>
+						<table>
+							<tbody>
+								<tr>
+									<th>Format / Version</th>
+									<th >Docker-Version</th>
+									<th>Hinweise</th>
+								</tr>
+								<tr>
+									<td>3.5</td>
+									<td>17.12.0+</td>
+									<td>Isolation</td>
+								</tr>
+								<tr>
+									<td>3.3</td>
+									<td>17.06.0+</td>
+									<td>Config / Secrets</td>
+								</tr>
+								<tr>
+									<td>3.0<br/> 3.1<br/>3.2</td>
+									<td>1.13.0+<br/>1.13.1+<br/>17.04.0+</td>
+									<td>Empfohlene Version <br />Erlaubt Verknüpfung mit Docker Swarm</td>
+								</tr>
+								<tr>
+									<td>2.1</td>
+									<td>1.12.0+</td>
+									<td>Healthcheck</td>
+								</tr>
+								<tr>
+									<td>2.0</td>
+									<td>1.10.0+</td>
+									<td>Networks, Dependency</td>
+								</tr>
+								<tr>
+									<td>1.0</td>
+									<td>1.9.1+</td>
+									<td>in zukünftiger Version deprecated / veraltet</td>
+								</tr>
+					   </tbody>
+					   </table>
+					</section>
+					<section>
+							<h3>Lokale Anwendungsstack-Operationen <a href="https://docs.docker.com/compose/reference/" target="_blank" class="infolink"></a></h3>
+							<pre><code class="docker">docker-compose [SUBCOMMAND] [OPTIONS] </code></pre>
+		<table>
+			 <tbody>
+				 <tr>
+					 <th>Subbefehl</th>
+					 <th >Optionen</th>
+					 <th>Hinweise</th>
+				 </tr>
+				 <tr>
+					 <td>pull</td>
+					 <td></td>
+					 <td>Lädt die im Anwendungsstack enthalten Images herunter</td>
+				 </tr>
+				 <tr>
+					 <td>create</td>
+					 <td>--no-cache [SERVICE...]</td>
+					 <td>Erstellt das Image bzw. den alle Images des Stack</td>
+				 </tr>
+				 <tr>
+					 <td>up</td>
+					 <td>-d [SERVICE] <br />--build</td>
+					 <td>Erstellt / Lädt herunter / Startet einen Service inkl. Abhängigkeiten oder den gesamten Stack</td>
+				 </tr>
+				 <tr>
+					 <td>start</td>
+					 <td>[SERVICE]</td>
+					 <td>Startet einen Service</td>
+				 </tr>
+		</tbody>
+		</table>		
+		
+						</section>
+						<section>
+							<table>
+			 <tbody>
+				 <tr>
+					 <th>Subbefehl</th>
+					 <th >Optionen</th>
+					 <th>Hinweise</th>
+				 </tr>
+				 <tr>
+					 <td>stop </td>
+					 <td>-t (timeout in s) [SERVICE]</td>
+					 <td>Beendet einen Service</td>
+				 </tr>
+				 <tr>
+					 <td>down</td>
+					 <td>--rmi /  -v</td>
+					 <td>Stoppt und entfernt Container, Netzwerke, images und Volumes</td>
+				 </tr>
+				 <tr>
+					 <td>rm</td>
+					 <td>-v</td>
+					 <td>Entfernt, nach Bestätigung, gestoppte Container und ggf. Volumes</td>
+				 </tr>
+				 <tr>
+					 <td>exec</td>
+					 <td>SERVICE COMMAND</td>
+					 <td>Führt den übergeben Befehl im Service aus</td>
+				 </tr>
+				  <tr>
+					 <td>top</td>
+					 <td>[SERVICE]</td>
+					 <td>Zeigt die Prozesse des Service bzw. des Anwendungsstack an</td>
+				 </tr>
+		</tbody>
+		</table>	
+						</section>
+						<section>
+								<h3>Verteilte Anwendungsstack-Operationen</a></h3>
+								<h4>Stack bereitstellen / aktualisieren <a href="https://docs.docker.com/engine/reference/commandline/stack_deploy/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker stack deploy [OPTIONS] STACK</code></pre>
+					<table>
+							<tbody>
+						<tr>
+							<td>--compose-file, -c</td>
+							<td>Compose-File (API 1.25+)</td>
+						</tr>
+						<tr>
+								<td>--resolve-image</td>
+								<td>Fragt das Image von der Registry ab (API 1.30+)</td>
+						</tr>
+						<tr>
+								<td>--prune</td>
+								<td>Entfernt nicht mehr verwendete Services (API 1.27)</td>
+						</tr>
+					</tbody>
+					</table>
+				</section>
+				<section>
+						<h4>Stack entfernen <a href="https://docs.docker.com/engine/reference/commandline/stack_rm/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker stack rm STACK</code></pre>
+						<h4>Stacks anzeigen <a href="https://docs.docker.com/engine/reference/commandline/stack_ls/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker stack ls [OPTIONS]</code></pre>
+						<h4>Services eines Stack anzeigen <a href="https://docs.docker.com/engine/reference/commandline/stack_services/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker stack services [OPTIONS] STACK</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Docker Config / Docker Secret</h2>
+					<p class="fragment">Zugangsdaten / Konfiguration nur für verteilte System</p>
+				</section>
+				<section>
+						<h3>Zugangsdaten verwalten (API 1.25+)</h3>
+						Wichtig: Inhalt kann per Docker-CLI angezeigt <b>nicht</b> werden.
+						<h4>Zugangsdaten anlegen <a href="https://docs.docker.com/engine/reference/commandline/secret_create/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker secret create [OPTIONS] SECRET [file|-]</code></pre>
+						<h4>Zugangsdaten anzeigen <a href="https://docs.docker.com/engine/reference/commandline/secret_ls/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker secret ls</code></pre>
+						<h4>Zugangsdaten Details anzeigen <a href="https://docs.docker.com/engine/reference/commandline/secret_inspect/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker secret inspect [OPTIONS] SECRET</code></pre>
+						<h4>Zugangsdaten löschen <a href="https://docs.docker.com/engine/reference/commandline/secret_rm/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker secret rm SECRET</code></pre>
+				</section>
+				<section>
+						<h3>Konfiguration verwalten (API 1.30+)</h3>
+						Inhalt kann per Docker-CLI angezeigt werden.
+						<h4>Konfiguration anlegen <a href="https://docs.docker.com/engine/reference/commandline/config_create/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker config create [OPTIONS] CONFIG [file|-]</code></pre>
+						<h4>Konfiguration anzeigen <a href="https://docs.docker.com/engine/reference/commandline/config_ls/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker config ls</code></pre>
+						<h4>Konfiguration Details anzeigen <a href="https://docs.docker.com/engine/reference/commandline/config_inspect/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker config inspect [OPTIONS] CONFIG</code></pre>
+						<h4>Konfiguration löschen <a href="https://docs.docker.com/engine/reference/commandline/config_rm/" target="_blank" class="infolink"></a></h4>
+						<pre><code class="docker">docker config rm CONFIG</code></pre>
+				</section>
+			</section>
 
 			<section>
 				<section>
@@ -155,10 +341,11 @@
 						<li>Integriertes Portal (UI) für Deployment / Test</li>
 						<li>Ausführung auf Docker Swarm oder Kubernetes</li>
 						<li>Skalierbar</li>
+						<li>Synchrone  / Asynchrone Ausführung</li>
 						<li>Verwendung diverser Programmiersprachen GO, node.js, .NET ...</li>
 					</ul>
 					<br />
-					<br /> Die Funktionen erhalten die Anfragen per HTTP POST und Port 8080.
+					<br /> Die Funktionen erhalten die Anfragen per HTTP POST/GET und Port 8080.
 				</section>
 				<section>
 					<h3>Architektur</h3>
@@ -182,10 +369,8 @@
 				</section>
 				<section>
 					<h3>Consolen-Anwendung</h3>
-					Verwendung des Function Watchdog
-					<br />
+					Verwendung des Function Watchdog (Empfehlung!)
 				</section>
-
 				<section>
 					<h3>Webanwendung</h3>
 					Erlaubt die Verwendung von Caching und aufwendige Ressourcen ...
@@ -197,6 +382,10 @@
 						<li>ASP.NET Core WebAPI <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api" target="_blank" class="infolink"></a></li>
 						<li>NancyFX <a href="https://github.com/NancyFx/Nancy/wiki/Documentation" target="_blank" class="infolink"></a></li>
 					</ul>
+				</section>
+				<section>
+					<h2>OpenFaaS CLI</h2>
+					<a href="https://github.com/openfaas/faas-cli" target="_blank">GitHub</a>
 				</section>
 			</section>
 			<section>
@@ -302,6 +491,22 @@
 						<br />
 						Manuell auf Basis des <a href="https://developer.amazon.com/de/docs/custom-skills/request-and-response-json-reference.html" target="_blank">json-Schema</a>
 					</section>
+				</section>
+				<section>
+					<h3>Noch nicht genug von OpenFaaS und Alexa</h3>
+					<p class="fragment">
+						Workshop <i>Serverless Computing mit OpenFaaS</i>
+					</p>
+					<p class="fragment">
+							Workshop <i>(An)sprechende Anwendungen mit Alexa</i>
+					</p>
+					<p class="fragment">
+						<img src="images/logo_spartakiade.png" style="width:250px">
+						<br />
+						Berlin 17./ 18. März 2018
+						<br />
+						Anmeldung ab 01.02.2018
+					</p>
 				</section>
 		</div>
 	</div>
