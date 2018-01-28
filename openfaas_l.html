@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Serverless Computing mit OpenFaas</title>
+
+	<meta name="description" content="Serverless Computing mit OpenFaas">
+	<meta name="author" content="Frank Pommerening">
+
+	<link rel="stylesheet" href="./common/css/reveal.css">
+	<link rel="stylesheet" href="./common/css/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="./common/lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? './common/css/print/pdf.css' : './common/css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<style>
+		a.infolink {
+			width: 40px;
+			height: 40px;
+			display: inline-block;
+			background-image: url("images/about.svg");
+			background-size: cover;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>Serverless Computing mit OPENFAAS</h1>
+				<h2>.NET User Group Leipzig</h2>
+				<h3>29.01.2018</h3>
+				<img src="images/openfaas_logo.png" style="border: 0px;background: transparent"/>
+			</section>
+			<section>
+				<section>
+					<h2>Docker Service</h2>
+					<img src="images/swarmlogo.jpg" style="width: 300px;border: 0"/>
+				</section>
+				<section>
+					Anwendungen die Cluster bereitgestellt werden, werden als Services bezeichnet.
+					Um den Service auf mehreren Nodes bereitzustellen, muss das Image in einer Registry abgelegt sein.
+				</section>
+				<section>
+					<h4>Service erstellen <a href="https://docs.docker.com/engine/reference/commandline/service_create/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></pre>
+					<table>
+	 			<tbody>
+		 <tr>
+			 <td>--name</td>
+			 <td>Name für den Service</td>
+		 </tr>
+		 <tr>
+			 <td>--network</td>
+			 <td>Verwendetes Netzwerk</td>
+		 </tr>
+		  <tr>
+			 <td>--publish, -p</td>
+			 <td>Veröffentlicht den Port</td>
+		 </tr>
+		  <tr>
+			 <td>--replicas</td>
+			 <td>Zahl der gleichzeitig laufenden Instanzen</td>
+		 </tr>
+		 <tr>
+			<td>--config</td>
+			<td>Zuordnung einer Konfiguration (API 1.3+)</td>
+		</tr>
+		<tr>
+			<td>--secret</td>
+			<td>Zuordnung von Zugangsdaten (API 1.25+)</td>
+		</tr>
+</tbody>
+</table>
+				</section>
+				<section>
+					<h4>Services entfernen <a href="https://docs.docker.com/engine/reference/commandline/service_rm/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service rm SERVICE</code></pre>
+					<h4>Services anzeigen <a href="https://docs.docker.com/engine/reference/commandline/service_ls/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service ls [OPTIONS] </code></pre>
+					<h4>Details zu / zum Services anzeigen <a href="https://docs.docker.com/engine/reference/commandline/service_inspect/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service inspect [OPTIONS] SERVICE</code></pre>
+					<h4>Services hoch/runter skalieren <a href="https://docs.docker.com/engine/reference/commandline/service_scale/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service scale SERVICE=ANZAHL</code></pre>
+					<h4>Logs eines Services anzeinge <a href="https://docs.docker.com/engine/reference/commandline/service_logs/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service logs [OPTIONS] SERVICE</code></pre>
+				</section>
+				<section>
+					<h4>Service aktualisieren API 1.24+<a href="https://docs.docker.com/engine/reference/commandline/service_update/" target="_blank" class="infolink"></a></h4>
+					<pre><code class="docker">docker service UPDATE [OPTIONS] SERVICE</code></pre>
+					<table>
+	 			<tbody>
+		<tr>
+			 <td>--config-[add][rm]</td>
+			 <td>1.30+</td>
+			 <td>Konfiguration ergänzen / entfernen</td>
+		 </tr>
+		 <tr>
+			 <td>--network-[add][rm]</td>
+			 <td>1.29+</td>
+			 <td>Netzwerk ergänzen / entfernen</td>
+		 </tr>
+		 <tr>
+			<td>--secret-[add][rm]</td>
+			<td>1.25+</td>
+			<td>Zugangsdaten ergänzen / entfernen</td>
+		</tr>
+		<tr>
+			 <td>--publish-[add][rm]</td>
+			 <td></td>
+			 <td>Veröffentlichtung ergänzen / entfernen</td>
+		 </tr>
+		 <tr>
+			<td>--env-[add][rm]</td>
+			<td></td>
+			<td>Variable ergänzen / entfernen</td>
+		</tr>
+		  <tr>
+			 <td>--limit-cpu / --limit-memory</td>
+			 <td></td>
+			 <td>Ressourcen ändern</td>
+		 </tr>
+</tbody>
+</table>
+				</section>
+
+			</section>
+			
+
+
+			<section>
+				<section>
+					<h2>Grundlagen und Architektur</h2>
+					<img src="images/openfaas_logo.png" style="border:0px" />
+				</section>
+				<section>
+					<ul>
+						<li>Framework für Serverless Functions</li>
+						<li>Open source
+							<a href="https://github.com/openfaas/faas" target="_blank">GitHub</a>
+						</li>
+						<li>Integriertes Portal (UI) für Deployment / Test</li>
+						<li>Ausführung auf Docker Swarm oder Kubernetes</li>
+						<li>Skalierbar</li>
+						<li>Verwendung diverser Programmiersprachen GO, node.js, .NET ...</li>
+					</ul>
+					<br />
+					<br /> Die Funktionen erhalten die Anfragen per HTTP POST und Port 8080.
+				</section>
+				<section>
+					<h3>Architektur</h3>
+					<img src="images/openfaas.svg" style="border:0px;width:1000px" />
+				</section>
+				<section>
+					<h4>Function Watchdog</h4>
+					<ul>
+						<li>kleiner HTTP-Server</li>
+						<li>geschrieben in Golong</li>
+						<li>erlaubt die Nutzung jedes Consolen-Programmes als Funktion</li>
+						<li>Sendet HTTP-Anfrage an STDIN (Consolen Eingaben) des Zielprogramms</li>
+						<li>Empfängt STDOUT (Consolen Ausgabe) und sendet sie per HTTP</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Funktionsentwicklung mit .NET Core</h2>
+					<img src="images/openfaas_logo.png" style="border:0px"/>
+				</section>
+				<section>
+					<h3>Consolen-Anwendung</h3>
+					Verwendung des Function Watchdog
+					<br />
+				</section>
+
+				<section>
+					<h3>Webanwendung</h3>
+					Erlaubt die Verwendung von Caching und aufwendige Ressourcen ...
+					<br />
+					<br />
+					Frameworks (Beispiele)<br />
+					<img src="images/nancyfx_logo.png" style="border:0px; height:200px; float:right" />
+					<ul>
+						<li>ASP.NET Core WebAPI <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api" target="_blank" class="infolink"></a></li>
+						<li>NancyFX <a href="https://github.com/NancyFx/Nancy/wiki/Documentation" target="_blank" class="infolink"></a></li>
+					</ul>
+				</section>
+			</section>
+			<section>
+					<section>
+						<h2>Funktionen für Amazon Alexa</h2>
+					</section>
+					<section>
+							<h3>Architektur</h3>
+							<img src="images/alexa.svg" style="border:0px;width:1000px"/>
+						</section>
+					<section>
+						<h4>Anlegen Entwickler-Zugang</h4>
+						https://developer.amazon.com/de/
+						<div style="border:0px;height:500px;">
+								<img src="images/alexa_create_account_01.png" class="fragment current-visible" style="border:0px;margin-left:50px;"/>
+								<img src="images/alexa_create_account_02.png" class="fragment" style="border:0px;"/>
+								<img src="images/alexa_create_account_03.png" class="fragment" style="border:0px;"/>
+						</div>
+					</section>
+					<section>
+						<h4>Starten: ALEXA > Getting Started</h4>
+						<img src="images/alexa_skill_01.png" style="border:0px;"/>
+					</section>
+					<section>
+						<h4>Skill bearbeiten / neu erstellen</h4>
+						<img src="images/alexa_skill_02.png" style="border:0px;"/>
+					</section>
+					<section>
+						<h4>Allgemeine Informationen</h4>
+						<img src="images/alexa_skill_03.png" style="border:0px; height:575px;margin-right:20px; float:left"/>
+						Erstellung:<br />
+						<ul>
+							<li>Type</li>
+							<li>Sprache</li>
+						</ul><br /><br />
+						Erstellung / Bearbeitung:<br />
+						<ul>
+							<li>Name</li>
+							<li>Aufruf</li>
+						</ul>
+					</section>
+					<section>
+						<h4>Interaction Modell</h4>
+						<h5>Befehle (Intent Schema)</h5>
+	Wichtig: auch Standardbefehle z.B. Hilfe vorsehen<br />
+	Optional: Defintion von Platzhaltern / Variablen (Slots)
+						<pre><code class="json">{
+	"intents":
+	  [
+		{  "intent": "greeting"  },
+		{  "intent": "sendoff"
+		   "slots": [{
+			"name": "NextMeetup", 
+			"type": "AMAZON.DATE"
+		  }] 	 
+		},
+		{  "intent": "AMAZON.HelpIntent"  },
+		{  "intent": "AMAZON.StopIntent"  }
+	  ]  
+	}</code></pre>
+	
+					</section>
+					<section>
+	<h4>Zuordnung Aufruf-Befehl (Sample Uterances)</h4>
+	<pre><code class="AsciiDoc">greeting sag hallo
+	greeting beginne treffen
+	breaknow pause
+	sendoff sag auf wiedersehen
+	sendoff beende treffen
+	sendoff schluss jetzt</code></pre>
+	<h4>Definition Variablentypen (Custom Slot Types) - Optional</h4>
+	
+					</section>
+					<section>
+						<img src="images/alexa_skill_04.png" style="border:0px; height:300px"/>
+						<img src="images/alexa_skill_05.png" style="border:0px; height:300px"/>
+					</section>
+					<section>
+						<h4>Globale Einstellungen z.B. Endpunkt</h4>
+						Endpunkt muss verschlüsselte Kommunikation (HTTPS) unterstützen.
+						<img src="images/alexa_skill_06.png" style="border:0px; height:530px"/>
+					</section>
+					<section>
+							<h4>SSL-Zertifikat für Endpunkt</h4>
+							<ul>
+								<li>Zertifikat für definierten Endpunkt (auch Let's Encrypt möglich)</li>
+								<li>Wild Card Zertifikat z.B. von Thawte</li>
+								<li>Selbst-signiertes Zertifikat</li>
+							</ul>
+							<img src="images/alexa_skill_07.png" style="border:0px; "/>
+						</section>
+					<section>
+						<h4>Testen</h4>
+						<img src="images/alexa_skill_08.png" style="border:0px;height:600px"/>
+					</section>
+					<section>
+						<h4>Function-Entwicklung (Auswahl)</h4>
+						node.js: <a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs" target="_blank">alexa-skills-kit-sdk-for-nodejs</a> (Offiziell)
+						<br />
+						<br />
+						.NET:  <a href="https://github.com/timheuer/alexa-skills-dotnet" target="_blank">alexa-skills-dotnet</a> (Community)
+						<br />
+						<br />
+						Manuell auf Basis des <a href="https://developer.amazon.com/de/docs/custom-skills/request-and-response-json-reference.html" target="_blank">json-Schema</a>
+					</section>
+				</section>
+		</div>
+	</div>
+
+	<script src="./common/lib/js/head.min.js"></script>
+	<script src="./common/js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			width: 1250,
+			height: 720,
+			slideNumber: true,
+			margin: 0.0,
+
+
+
+			menu: {
+				side: 'left',
+
+				titleSelector: 'h1, h2, h3, h4, h5, h6',
+				hideMissingTitles: false,
+				markers: false,
+				custom: false,
+				themes: [
+					{ name: 'Black', theme: './common/css/theme/black.css' },
+					{ name: 'White', theme: './common/css/theme/white.css' },
+					{ name: 'League', theme: './common/css/theme/league.css' },
+					{ name: 'Sky', theme: './common/css/theme/sky.css' },
+					{ name: 'Beige', theme: './common/css/theme/beige.css' },
+					{ name: 'Simple', theme: './common/css/theme/simple.css' },
+					{ name: 'Serif', theme: './common/css/theme/serif.css' },
+					{ name: 'Blood', theme: './common/css/theme/blood.css' },
+					{ name: 'Night', theme: './common/css/theme/night.css' },
+					{ name: 'Moon', theme: './common/css/theme/moon.css' },
+					{ name: 'Solarized', theme: './common/css/theme/solarized.css' }
+				],
+
+				transitions: true,
+				openButton: true,
+				openSlideNumber: false,
+				keyboard: true,
+				sticky: false,
+				autoOpen: true
+			},
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [
+				{ src: './common/lib/js/classList.js', condition: function () { return !document.body.classList; } },
+				{ src: './common/plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+				{ src: './common/plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+				{ src: './common/plugin/notes/notes.js', async: true },
+				{ src: './common/plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: './common/plugin/zoom-js/zoom.js', async: true },
+				{ src: './common/plugin/notes/notes.js', async: true },
+				{ src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
+				//    { src: './common/plugin/multiplex/client.js', async: true },
+				{ src: './common/plugin/menu/menu.js', async: true }
+			]
+		});
+	</script>
+</body>
+
+</html>
