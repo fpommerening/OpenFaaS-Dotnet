@@ -1,6 +1,6 @@
 version: "3.2"
 services:
-    nginx-proxy:
+    proxy:
         ports:
             - 80:80
             - 443:443
@@ -15,7 +15,7 @@ services:
         labels:
             com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
             
-    nginx-letsencrypt:
+    letsencrypt:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - certs:/etc/nginx/certs:rw
@@ -24,7 +24,7 @@ services:
             
         image: jrcs/letsencrypt-nginx-proxy-companion
         depends_on:
-            - nginx-proxy
+            - proxy
         networks:
             - functions
         deploy:
@@ -42,8 +42,6 @@ volumes:
   certs:
     external:
       name: ssl-certs
-    
-
 networks:
   functions:
     external:

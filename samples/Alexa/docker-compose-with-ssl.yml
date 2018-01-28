@@ -1,45 +1,11 @@
 version: "3.2"
 services:
-    nginx-proxy:
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - "/home/certs:/etc/nginx/certs:ro"
-            - "/home/vhost:/etc/nginx/vhost.d"
-            - "/home/html:/usr/share/nginx/html"
-            - "/var/run/docker.sock:/tmp/docker.sock:ro"
-        image: jwilder/nginx-proxy
-        networks:
-            - functions
-        labels:
-            com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
-            
-    nginx-letsencrypt:
-        volumes:
-            - "/home/certs:/etc/nginx/certs:rw"
-            - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/home/vhost:/etc/nginx/vhost.d"
-            - "/home/html:/usr/share/nginx/html"
-            
-        image: jrcs/letsencrypt-nginx-proxy-companion
-        depends_on:
-            - nginx-proxy
-        networks:
-            - functions
-        deploy:
-            placement:
-                constraints:
-                    - 'node.role == manager'
-                    - 'node.platform.os == linux'
-        
-
     gateway:
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
         #ports:
         #    - 8080:8080
-        image: functions/gateway:0.6.5
+        image: functions/gateway:0.6.15
         depends_on:
             - nginx-proxy
         networks:
@@ -47,8 +13,8 @@ services:
         environment:
             dnsrr: "true"  # Temporarily use dnsrr in place of VIP while issue persists on PWD
             LETSENCRYPT_EMAIL: "frank@pommerening-online.de"
-            LETSENCRYPT_HOST: "openfaas.pommerening-online.de"
-            VIRTUAL_HOST: "openfaas.pommerening-online.de"
+            LETSENCRYPT_HOST: "alexa.openfaas-dotnet.de"
+            VIRTUAL_HOST: "alexa.openfaas-dotnet.de"
             VIRTUAL_PORT: "8080"
         deploy:
             placement:
@@ -61,7 +27,6 @@ services:
         #ports:
         #    - 9090:9090
         depends_on:
-            - nginx-proxy
             - gateway
             - alertmanager
         environment:
@@ -115,6 +80,5 @@ services:
 
 networks:
     functions:
-        driver: overlay
-        # Docker does not support this option yet - maybe create outside of the stack and reference as "external"?
-        #attachable: true
+         external:
+            name: functions
