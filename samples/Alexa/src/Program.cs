@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
@@ -9,6 +10,8 @@ namespace FP.OpenfaasDotnet.Alexa
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
             var content = StdInHelper.GetValue();
@@ -29,8 +32,10 @@ namespace FP.OpenfaasDotnet.Alexa
                     break;
             }
 
-            JsonConvert.SerializeObject(response, Formatting.Indented,
+            var responseAsJson = JsonConvert.SerializeObject(response, Formatting.Indented,
                 new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
+
+            Console.WriteLine(responseAsJson);
         }
 
         private static SkillResponse ExecuteIntent(SkillRequest skillRequest)
