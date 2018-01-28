@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alexa", "Alexa\src\Alexa.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\src\WebApp.csproj", "{417FE488-9A02-4AB1-871D-2E5BE6253431}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configs", "Configs\src\Configs.csproj", "{D66BAB52-7A26-4B20-A05E-0EB38353051F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secrets", "Secrets\src\Secrets.csproj", "{A29587FF-5CFC-40FE-B98E-AE9FBEBB188A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{417FE488-9A02-4AB1-871D-2E5BE6253431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66BAB52-7A26-4B20-A05E-0EB38353051F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66BAB52-7A26-4B20-A05E-0EB38353051F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66BAB52-7A26-4B20-A05E-0EB38353051F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66BAB52-7A26-4B20-A05E-0EB38353051F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29587FF-5CFC-40FE-B98E-AE9FBEBB188A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29587FF-5CFC-40FE-B98E-AE9FBEBB188A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29587FF-5CFC-40FE-B98E-AE9FBEBB188A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29587FF-5CFC-40FE-B98E-AE9FBEBB188A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
