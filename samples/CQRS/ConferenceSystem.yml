@@ -1,0 +1,21 @@
+provider:
+  name: faas
+  gateway: http://localhost:8080
+
+functions:
+  AddConference:
+    lang: csharp
+    handler: ./AddConference
+    image: addconference
+
+  NewRegistration:
+    lang: csharp
+    handler: ./NewRegistration
+    image: newregistration
+    
+  CancelRegistration:
+    lang: csharp
+    handler: ./CancelRegistration
+    image: cancelregistration
+
+
