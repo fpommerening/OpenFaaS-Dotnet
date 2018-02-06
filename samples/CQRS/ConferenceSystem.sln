@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CancelRegistration", "Cance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewRegistration", "NewRegistration\NewRegistration.csproj", "{F0A2ACA9-FCFF-435A-852C-BE259EAF3886}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleRunner", "SampleRunner\SampleRunner.csproj", "{8DFB9CA3-8512-46F9-BA44-34CFF5C345AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F0A2ACA9-FCFF-435A-852C-BE259EAF3886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0A2ACA9-FCFF-435A-852C-BE259EAF3886}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0A2ACA9-FCFF-435A-852C-BE259EAF3886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFB9CA3-8512-46F9-BA44-34CFF5C345AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFB9CA3-8512-46F9-BA44-34CFF5C345AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFB9CA3-8512-46F9-BA44-34CFF5C345AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFB9CA3-8512-46F9-BA44-34CFF5C345AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
