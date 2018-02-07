@@ -11,8 +11,7 @@ namespace Function
             // try Mongo-Client
             var client = new MongoDB.Driver.MongoClient("mongodb://localhost:27017");
 
-            var dl = new Data.DataLayer();
-            dl.SaveEventData(input);
+            
         }
     }
 }
