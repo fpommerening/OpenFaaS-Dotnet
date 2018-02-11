@@ -1,0 +1,48 @@
+version: "3.2"
+services:
+    proxy:
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - certs:/etc/nginx/certs:ro
+            - vhosts:/etc/nginx/vhost.d
+            - html:/usr/share/nginx/html
+        image: jwilder/nginx-proxy
+        networks:
+            - functions
+        labels:
+            com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+            
+    letsencrypt:
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - certs:/etc/nginx/certs:rw
+            - vhosts:/etc/nginx/vhost.d
+            - html:/usr/share/nginx/html
+            
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        depends_on:
+            - proxy
+        networks:
+            - functions
+        deploy:
+            placement:
+                constraints:
+                    - 'node.role == manager'
+                    - 'node.platform.os == linux'
+volumes:
+  html:
+    external:
+      name: ssl-html
+  vhosts:
+    external:
+      name: ssl-vhosts
+  certs:
+    external:
+      name: ssl-certs
+networks:
+  functions:
+    external:
+      name: functions
