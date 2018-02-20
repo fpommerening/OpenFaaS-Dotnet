@@ -1,0 +1,10 @@
+provider:
+  name: faas
+  gateway: https://alexa.openfaas-dotnet.de
+  network: "functions" 
+
+functions:
+  Alexa:
+    lang: csharp
+    handler: ./Alexa
+    image: fpommerening/openfaas-dotnet:alexa

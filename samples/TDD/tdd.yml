@@ -1,0 +1,9 @@
+provider:
+  name: faas
+  gateway: http://localhost:8080
+
+functions:
+  tdd:
+    lang: csharp-tdd
+    handler: ./tdd
+    image: tdd

@@ -1,21 +1,18 @@
-﻿
-using System;
+﻿using System;
+using System.Text;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace FP.OpenfaasDotnet.Alexa
+
+namespace Function
 {
-    class Program
+    public class FunctionHandler
     {
-
-
-        static void Main(string[] args)
-        {
-            var content = StdInHelper.GetValue();
-            var request = JsonConvert.DeserializeObject<SkillRequest>(content);
+        public void Handle(string input) {
+               var request = JsonConvert.DeserializeObject<SkillRequest>(input);
 
             SkillResponse response;
 
@@ -90,7 +87,5 @@ namespace FP.OpenfaasDotnet.Alexa
 
             return reponse;
         }
-
-
     }
 }
