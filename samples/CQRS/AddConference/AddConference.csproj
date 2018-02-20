@@ -9,4 +9,10 @@
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenFaaS.Dotnet" Version="0.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Data\Data.csproj" />
+  </ItemGroup>
 </Project>

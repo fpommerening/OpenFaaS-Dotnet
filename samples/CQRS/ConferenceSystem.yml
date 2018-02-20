@@ -4,17 +4,17 @@ provider:
 
 functions:
   AddConference:
-    lang: csharp
+    lang: csharp-common
     handler: ./AddConference
     image: addconference
 
   NewRegistration:
-    lang: csharp
+    lang: csharp-common
     handler: ./NewRegistration
     image: newregistration
     
   CancelRegistration:
-    lang: csharp
+    lang: csharp-common
     handler: ./CancelRegistration
     image: cancelregistration
 
