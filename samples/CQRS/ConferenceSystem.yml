@@ -17,3 +17,4 @@ functions:
     lang: csharp-common
     handler: ./CancelRegistration
     image: cancelregistration
+
