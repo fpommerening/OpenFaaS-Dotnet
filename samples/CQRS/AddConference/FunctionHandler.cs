@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Text;
+using Data;
+using Domain.Commands;
+using Domain.Handlers;
+using Newtonsoft.Json;
 using OpenFaaS.Dotnet;
 
 namespace Function
@@ -14,9 +18,17 @@ namespace Function
 
         public override void Handle(string input)
         {
-            Context.WriteContent($"Hi there - your input was: {input}");
-                // try Mongo-Client
-            var client = new MongoDB.Driver.MongoClient("mongodb://localhost:27017");
+            var addConferenceCommand = JsonConvert.DeserializeObject<AddConference>(input);
+            var conferenceHandler = new ConferenceHandler();
+            var events = conferenceHandler.Handle(addConferenceCommand);
+
+
+            var dl = new DataLayer();
+            dl.SaveEventData(events);
+
+
+
+
         }
     }
 }

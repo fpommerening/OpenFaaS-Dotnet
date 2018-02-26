@@ -8,11 +8,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenFaaS.Dotnet" Version="0.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Data\Data.csproj" />
+    <ProjectReference Include="..\Common\Domain\Domain.csproj" />
   </ItemGroup>
 </Project>
