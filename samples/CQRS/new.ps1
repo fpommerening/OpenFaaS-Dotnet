@@ -2,13 +2,13 @@ param([string]$ProjectName='')
 
 $cli_path = "C:\OpenFaaS\faas-cli.exe"
 
-if(-not(Test-Path *.yml))
+if(Test-Path *.yml)
 {
-    & $cli_path 'new' $ProjectName --lang csharp -f stack.yml
+    & $cli_path 'new' $ProjectName --lang csharp-common --append ((Get-Childitem *.yml).Name)
 }
 else
 {
-    & $cli_path 'new' $ProjectName --lang csharp --append stack.yml    
+    & $cli_path 'new' $ProjectName --lang csharp-common -f stack.yml
 }
 
 if(-not(Test-Path *.sln))
