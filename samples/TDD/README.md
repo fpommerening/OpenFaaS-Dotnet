@@ -1,6 +1,6 @@
-#Test Driven Development with OpenFaaS
+# Test Driven Development with OpenFaaS
 
-TDD (Test Driven Development) ist ein sehr gutes Paradigma für die Entwicklung von Functions. Function enthalten kaum Infrastruktur-Code und konzentieren sich auf die eigentliche Business-Logic.
+TDD (Test Driven Development) ist ein sehr gutes Paradigma für die Entwicklung von Functions. Functions enthalten kaum Infrastruktur-Code und konzentieren sich auf die eigentliche Business-Logic.
 Deren Funktion lässt sich mittels Unittests sehr gut testen.
 
 ## Templates
