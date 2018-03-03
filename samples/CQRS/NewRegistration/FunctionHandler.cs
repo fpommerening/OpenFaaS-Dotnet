@@ -1,5 +1,10 @@
-﻿using System;
-using System.Text;
+﻿using System.Linq;
+using Data;
+using Domain.Commands;
+using Domain.Handlers;
+using Domain.Models;
+using Messaging;
+using Newtonsoft.Json;
 using OpenFaaS.Dotnet;
 
 namespace Function
@@ -13,10 +18,27 @@ namespace Function
 
         public override void Handle(string input)
         {
+            var addConferenceCommand = JsonConvert.DeserializeObject<NewRegistration>(input);
+            var conferenceHandler = new ConferenceHandler();
+            var events = conferenceHandler.Handle(addConferenceCommand).ToArray();
 
+            var dl = new DataLayer();
+            dl.SaveEventData(events);
 
+            var commandResult = new CommandResult
+            {
+                CommandName = "NewRegistration",
+                EventId = events.Select(x => x.Id).ToArray()
+            };
 
-            Context.WriteContent($"Hi there - your input was: {input}");
+            Context.WriteContent(JsonConvert.SerializeObject(commandResult));
+            using (var bus = new EventBus())
+            {
+                foreach (var e in events)
+                {
+                    bus.Publish(e);
+                }
+            }
         }
     }
 }

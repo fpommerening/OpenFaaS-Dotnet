@@ -16,5 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Data\Data.csproj" />
     <ProjectReference Include="..\Common\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Common\Messaging\Messaging.csproj" />
   </ItemGroup>
 </Project>

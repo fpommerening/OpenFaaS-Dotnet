@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Common\Data\Data.cs
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B7D88679-059F-46ED-8515-E058015EF3F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Common\Domain\Domain.csproj", "{201AEEF9-6DB7-49C8-83DD-7F7665A0E1E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Common\Domain\Domain.csproj", "{201AEEF9-6DB7-49C8-83DD-7F7665A0E1E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "Common\Messaging\Messaging.csproj", "{F857B50E-A8C7-48AB-92A7-A1C482A21357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging", "Common\Messaging\Messaging.csproj", "{F857B50E-A8C7-48AB-92A7-A1C482A21357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

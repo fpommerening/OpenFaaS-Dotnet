@@ -1,8 +1,9 @@
-﻿using System;
-using System.Text;
+﻿using System.Linq;
 using Data;
 using Domain.Commands;
 using Domain.Handlers;
+using Domain.Models;
+using Messaging;
 using Newtonsoft.Json;
 using OpenFaaS.Dotnet;
 
@@ -10,7 +11,6 @@ namespace Function
 {
     public class FunctionHandler : BaseFunction
     {
-
          public FunctionHandler(IFunctionContext functionContext)
             : base(functionContext)
         {
@@ -20,15 +20,25 @@ namespace Function
         {
             var addConferenceCommand = JsonConvert.DeserializeObject<AddConference>(input);
             var conferenceHandler = new ConferenceHandler();
-            var events = conferenceHandler.Handle(addConferenceCommand);
-
+            var events = conferenceHandler.Handle(addConferenceCommand).ToArray();
 
             var dl = new DataLayer();
             dl.SaveEventData(events);
 
+            var commandResult = new CommandResult
+            {
+                CommandName = "AddConference",
+                EventId = events.Select(x => x.Id).ToArray()
+            };
 
-
-
+            Context.WriteContent(JsonConvert.SerializeObject(commandResult));
+            using (var bus = new EventBus())
+            {
+                foreach (var e in events)
+                {
+                    bus.Publish(e);
+                }
+            }
         }
     }
 }
