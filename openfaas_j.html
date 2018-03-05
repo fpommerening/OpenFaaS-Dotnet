@@ -394,7 +394,7 @@
 					<h4>Function Watchdog</h4>
 					<ul>
 						<li>kleiner HTTP-Server</li>
-						<li>geschrieben in Golong</li>
+						<li>geschrieben in Golang</li>
 						<li>erlaubt die Nutzung jedes Consolen-Programmes als Funktion</li>
 						<li>Sendet HTTP-Anfrage an STDIN (Consolen Eingaben) des Zielprogramms</li>
 						<li>Empfängt STDOUT (Consolen Ausgabe) und sendet sie per HTTP</li>
@@ -422,9 +422,215 @@
 						<li>NancyFX <a href="https://github.com/NancyFx/Nancy/wiki/Documentation" target="_blank" class="infolink"></a></li>
 					</ul>
 				</section>
+				
+			</section>
+			<section>
 				<section>
 					<h2>OpenFaaS CLI</h2>
-					<a href="https://github.com/openfaas/faas-cli" target="_blank">GitHub</a>
+					<h3>Basics</h3>
+				</section>
+				<section>
+						ConsoleLineInterface für OpenFaaS<br/>
+						Open-Source (<a href="https://github.com/openfaas/faas-cli" target="_blank">GitHub</a>)<br />
+						geschrieben in Golang <br/>
+						Multiplattform (Windows, Linux, Mac)<br />
+						Multiachitektur (x64, ARM32, ARM64)<br />
+						offen für eigene Templates<br />
+				</section>
+				<section>
+						<h4>Download</h4>
+						Curl (Utility script)
+						<pre><code class="shell">$ curl -sSL https://cli.openfaas.com | sh</code></pre>
+						Brew
+						<pre><code class="shell">$ brew install faas-cli</code></pre>
+						Powershell
+						<pre><code class="powershell">$version = (Invoke-WebRequest "https://api.github.com/repos/openfaas/faas-cli/releases/latest" 
+	| ConvertFrom-Json)[0].tag_name   
+(New-Object System.Net.WebClient).DownloadFile("https://github.com/openfaas/
+	faas-cli/releases/download/$version/faas-cli.exe", "faas-cli.exe")</code></pre>
+				</section>
+				<section>
+						<h4>Funktion aus Template erstellen</h4>
+						<pre><code class="shell">faas-cli new [FUNCTION --lang TEMPLATE] [-a YAML-File] [-g URL] [--list]</code></pre>
+						<table>
+							<tbody>
+								<tr>
+									<td>-a / --append</td>
+									<td>fügt die neue Funktion zu bestehende Stack hinzu</td>
+								</tr>
+								<tr>
+									<td>-g / --gateway</td>
+									<td>URL OpenFaaS Gateway</td>
+								</tr>
+								<tr>
+									<td>--list</td>
+									<td>Anzeige der verfügbaren Templates</td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+						<h4>Funktions-Container bauen</h4>
+						<pre><code class="shell">faas-cli build -f YAML-File [--filter FILTER] [--no-cache]</code></pre>
+						<table>
+							<tbody>
+								<tr>
+									<td>-f</td>
+									<td>Dateipfad zur Stack-YAML-Datei</td>
+								</tr>
+								<tr>
+									<td>--filter</td>
+									<td>Filter auf bestimmte Funktionen</td>
+								</tr>
+								<tr>
+									<td>--no-cache</td>
+									<td>Erstellung ohne Docker-Cache</td>
+								</tr>
+							</tbody>
+						</table>
+				</section>
+				<section>
+					<h4>Funktion im Gateway bereitstellen</h4>
+					<pre><code class="shell">faas-cli deploy [-f YAML-File] [--filter FILTER] [--replace] [--update]</code></pre>
+					<table>
+							<tbody>
+								<tr>
+									<td>-f</td>
+									<td>Dateipfad zur Stack-YAML-Datei</td>
+								</tr>
+								<tr>
+									<td>--filter</td>
+									<td>Filter auf bestimmte Funktionen</td>
+								</tr>
+								<tr>
+									<td>--replace</td>
+									<td>Bestehende Funktion entfernen und neuerstellen</td>
+								</tr>
+								<tr>
+									<td>--update</td>
+									<td>Rollierendes Updates durchführen (Default: true)</td>
+								</tr>
+								<tr>
+									<td>--network</td>
+									<td>Name des Funktions-Netzwerks (Default: func_functions)</td>
+								</tr>
+								<tr>
+									<td>--image</td>
+									<td>Docker-Image</td>
+								</tr>
+								<tr>
+									<td>--name</td>
+									<td>Funktions-Name</td>
+								</tr>
+								<tr>
+									<td>--secret</td>
+									<td>Docker-Secrets verknüpfen</td>
+								</tr>
+							</tbody>
+						</table>
+				</section>
+				<section>
+					<h4>Funktion aus Gateway entfernen</h4>
+					<pre><code class="shell">faas-cli remove [-f YAML-File] [--filter FILTER]</code></pre>
+					<table>
+							<tbody>
+								<tr>
+									<td>-f</td>
+									<td>Dateipfad zur Stack-YAML-Datei</td>
+								</tr>
+								<tr>
+									<td>--filter</td>
+									<td>Filter auf bestimmte Funktionen</td>
+								</tr>
+								<tr>
+									<td>--gateway</td>
+									<td>URL OpenFaaS Gateway</td>
+								</tr>
+							</tbody>
+						</table>
+						<br/>
+					<h4>Funktions-Image(s) an Registry übertragen</h4>
+					<pre><code class="shell">faas-cli push [-f YAML-File] [--filter FILTER]</code></pre>
+					WICHTIG: vorher per Docker LOGIN am Docker-Hub anmelden!
+					<table>
+						<tbody>
+							<tr>
+								<td>-f</td>
+								<td>Dateipfad zur Stack-YAML-Datei</td>
+							</tr>
+							<tr>
+								<td>--filter</td>
+								<td>Filter auf bestimmte Funktionen</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h4>Anmeldung an Gateway mit Basic-Authentifizierung</h4>
+					<pre><code class="shell">faas-cli login -u USER -p PASSWORT --gateway URL</code></pre>
+					<table>
+							<tbody>
+								<tr>
+									<td>-u / --username</td>
+									<td>Benutzername</td>
+								</tr>
+								<tr>
+									<td>-p / --password</td>
+									<td>Passwort</td>
+								</tr>
+								<tr>
+									<td>-g / --gateway</td>
+									<td>URL für OpenFaaS Gateway</td>
+								</tr>
+							</tbody>
+						</table>
+					<br/>
+					<h4>Abmeldung von Gateway mit Authentifizierung</h4>
+					<pre><code class="shell">faas-cli logout --gateway URL</code></pre>
+					<table>
+							<tbody>
+								<tr>
+									<td>-g / --gateway</td>
+									<td>URL für OpenFaaS Gateway</td>
+								</tr>
+							</tbody>
+						</table>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>OpenFaaS CLI</h2>
+					<h3>Templates</h3>
+				</section>
+				<section>
+					Zusätzliche Templates werden in (eigenen) Git-Repositories verwaltet.<br />
+					Vorlagen werden je Ordner (Stack-Root) verwaltet.
+					<br />
+					<br />
+					<h4>Templates abrufen</h4>
+					<pre><code class="shell">faas-cli template pull GIT-URL [--overwrite]</code></pre>
+					<table>
+							<tbody>
+								<tr>
+									<td>--overwrite</td>
+									<td>Bestehende (gleichnamige) Vorlagen ersetzen</td>
+								</tr>
+							</tbody>
+					</table>
+					<br />
+					Beispiele (Auswahl): <br/>
+					<p style="font-size:medium">
+						PHP  https://github.com/itscaro/openfaas-template-php/ <br/>
+						CSharp (TDD, COMMON) https://github.com/fpommerening/openfaas-template-csharp <br/>
+						CSharp (Kestrel) https://github.com/BurtonR/csharp-kestrel-template <br/>
+						Java https://github.com/tmobile/faas-java-templates <br/>
+						GO https://github.com/alexellis/golang-http-template <br/>
+					</p>
+				</section>
+				<section>
+					<h3>Struktur für eigene Vorlagen <a href="https://github.com/openfaas/faas-cli/blob/master/guide/TEMPLATE.md" target="_blank" class="infolink"></a></h4></h3>
+				
+					TODO: Grafik ergänzen
+						
 				</section>
 			</section>
 			<section>
