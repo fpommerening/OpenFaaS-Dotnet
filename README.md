@@ -7,3 +7,5 @@ Hamburg: <a href="https://fpommerening.github.io/OpenFaaS-Dotnet/openfaas_hh.htm
 <br />
 Leipzig: <a href="https://fpommerening.github.io/OpenFaaS-Dotnet/openfaas_l.html#/" target="_blank">Serverless Computing mit OpenFaaS</a> (29.01.2018)
 <br />
+Jena: <a href="https://fpommerening.github.io/OpenFaaS-Dotnet/openfaas_j.html#/" target="_blank">Serverless Computing mit Docker Swarm und OpenFaaS</a> (08.03.2018)
+<br />
