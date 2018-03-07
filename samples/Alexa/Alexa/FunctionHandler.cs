@@ -46,7 +46,7 @@ namespace Function
             switch (intentRequest.Intent.Name.ToLowerInvariant())
             {
                 case "greeting":
-                    return CreatePlaneTextResponse("Hallo und Willkommen bei der dot NET Usergroup Leipzig. Ich bin Alexa und wünsche euch viel Spaß beim Vortrag Serverless Computing mit OpenFaaS.");
+                    return CreatePlaneTextResponse("Hallo und Willkommen bei der Softwerkskammer Jena. Ich bin Alexa und wünsche euch viel Spaß beim Vortrag Serverless Computing mit Docker Swarm und OpenFaaS.");
                 case "sendoff":
                     return CreatePlaneTextResponse("Vielen Dank für eure Teilnahme und bis zum nächsten mal.");
                 case "breaknow":
