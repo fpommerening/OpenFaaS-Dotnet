@@ -7,26 +7,43 @@ functions:
     lang: csharp-common
     handler: ./AddConference
     image: addconference
+    secrets:
+    - CommandCnn
+    - MessageBusCnn
 
   NewRegistration:
     lang: csharp-common
     handler: ./NewRegistration
     image: newregistration
+    secrets:
+    - CommandCnn
+    - MessageBusCnn
     
   CancelRegistration:
     lang: csharp-common
     handler: ./CancelRegistration
     image: cancelregistration
+    secrets:
+    - CommandCnn
+    - MessageBusCnn
 
   ConferenceList:
     lang: csharp-common
     handler: ./ConferenceList
     image: conferencelist
+    secrets:
+    - ReadCnn
+
   ConferenceDetail:
     lang: csharp-common
     handler: ./ConferenceDetail
     image: conferencedetail
+    secrets:
+    - ReadCnn
+
   AttendeeList:
     lang: csharp-common
     handler: ./AttendeeList
     image: attendeelist
+    secrets:
+    - ReadCnn
