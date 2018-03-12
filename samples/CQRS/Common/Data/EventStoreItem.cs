@@ -12,6 +12,9 @@ namespace Data
         [BsonElement("event")]
         public object Event { get; set; }
 
+        [BsonElement("eventtype")]
+        public string EventType { get; set; }
+
         [BsonElement("timestamp")]
         public DateTime Timestamp { get; set; }
     }

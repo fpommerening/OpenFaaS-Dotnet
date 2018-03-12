@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MessageBusCnn" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="MessageBusCnn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EasyNetQ" Version="2.3.1" />
   </ItemGroup>
 

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Domain.Events;
 using EasyNetQ;
+using EasyNetQ.NonGeneric;
 
 namespace Messaging
 {
@@ -16,7 +17,7 @@ namespace Messaging
 
         public void Publish<T>(T eventData) where T : EventBase
         {
-            Bus().PublishAsync(eventData, typeof(T).Name);
+            Bus().Publish(eventData.GetType(), eventData);
         }
 
         public IDisposable Subscribe<T>(string id, Func<T, Task> handler) where T : EventBase

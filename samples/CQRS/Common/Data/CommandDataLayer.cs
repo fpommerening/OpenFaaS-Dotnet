@@ -17,6 +17,7 @@ namespace Data
             var storeItems = eventData.Select(x => new EventStoreItem
             {
                 Event = x,
+                EventType = typeof(T).FullName,
                 Timestamp = DateTime.UtcNow
             }).ToList();
             collection.InsertMany(storeItems);
