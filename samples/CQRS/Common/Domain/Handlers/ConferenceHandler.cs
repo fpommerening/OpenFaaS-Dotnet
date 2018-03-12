@@ -27,6 +27,7 @@ namespace Domain.Handlers
             var newRegistrationEvent = new NewRegistrationEvent
             {
                 Id = Guid.NewGuid(),
+
                 Company = command.Company,
                 FirstName = command.FirstName,
                 Name = command.Name,

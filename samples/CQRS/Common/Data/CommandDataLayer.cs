@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Data
 {
-    public class DataLayer
+    public class CommandDataLayer
     {
         private IMongoClient _mongoClient;
 
@@ -29,7 +29,12 @@ namespace Data
 
         private IMongoClient Client()
         {
-            return _mongoClient ?? (_mongoClient = new MongoClient("mongodb://localhost"));
+            if (_mongoClient == null)
+            {
+                var cnn = DockerSecretHelper.GetSecretValue("CommandCnn");
+                _mongoClient = new MongoClient(cnn);
+            }
+            return _mongoClient;
         }
     }
 }

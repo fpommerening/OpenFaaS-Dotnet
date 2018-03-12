@@ -22,7 +22,7 @@ namespace Function
             var conferenceHandler = new ConferenceHandler();
             var events = conferenceHandler.Handle(addConferenceCommand).ToArray();
 
-            var dl = new DataLayer();
+            var dl = new CommandDataLayer();
             dl.SaveEventData(events);
 
             var commandResult = new CommandResult

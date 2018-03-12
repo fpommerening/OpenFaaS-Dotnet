@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Common\Domain\Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messaging", "Common\Messaging\Messaging.csproj", "{F857B50E-A8C7-48AB-92A7-A1C482A21357}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{CACCB99A-69E3-4343-89F4-42E726FABC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F857B50E-A8C7-48AB-92A7-A1C482A21357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F857B50E-A8C7-48AB-92A7-A1C482A21357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F857B50E-A8C7-48AB-92A7-A1C482A21357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACCB99A-69E3-4343-89F4-42E726FABC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACCB99A-69E3-4343-89F4-42E726FABC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACCB99A-69E3-4343-89F4-42E726FABC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACCB99A-69E3-4343-89F4-42E726FABC6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
