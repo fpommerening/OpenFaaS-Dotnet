@@ -64,7 +64,7 @@ namespace Data
 
         public Task SaveConferenceListItem(ConferenceListItem conference)
         {
-            var collection = Database().GetCollection<ConferenceListItem>("Conference");
+            var collection = Database().GetCollection<ConferenceListItem>("ConferenceList");
             return collection.InsertOneAsync(conference);
         }
 

@@ -7,7 +7,7 @@ using Domain.Events;
 
 namespace EventHandler.Projections
 {
-    public class Conference
+    public class ConferenceDetail
     {
         public static Task Handle(AddConferenceEvent addConferenceEvent)
         {

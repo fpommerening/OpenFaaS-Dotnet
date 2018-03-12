@@ -19,19 +19,19 @@ namespace EventHandler
                 addConferenceSub = myBus.Subscribe<AddConferenceEvent>("AddConference",
                     async x =>
                     {
-                        await Conference.Handle(x);
+                        await ConferenceDetail.Handle(x);
                         await ConferenceList.Handle(x);
                     });
              
                 newRegistrationSub = myBus.Subscribe<NewRegistrationEvent>("NewRegistration", async x =>
                 {
-                    await Conference.Handle(x);
+                    await ConferenceDetail.Handle(x);
                     await AttendeeList.Handle(x);
                 });
               
                 cancelRegistrationSub = myBus.Subscribe<CancelRegistrationEvent>("CancelRegistration", async x =>
                 {
-                    await Conference.Handle(x);
+                    await ConferenceDetail.Handle(x);
                     await AttendeeList.Handle(x);
                 });
 

@@ -18,3 +18,15 @@ functions:
     handler: ./CancelRegistration
     image: cancelregistration
 
+  ConferenceList:
+    lang: csharp-common
+    handler: ./ConferenceList
+    image: conferencelist
+  ConferenceDetail:
+    lang: csharp-common
+    handler: ./ConferenceDetail
+    image: conferencedetail
+  AttendeeList:
+    lang: csharp-common
+    handler: ./AttendeeList
+    image: attendeelist
